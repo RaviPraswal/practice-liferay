@@ -9,6 +9,8 @@
 
 <%
 	List<Employee> employees = (List<Employee>)renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_LIST_IN_RENDER_REQUEST);
+	int delta = (Integer)renderRequest.getAttribute("delta");
+	int employeeListSize = (Integer)renderRequest.getAttribute("employeeListSize");
 %>
 
 <liferay-portlet:renderURL varImpl="viewEmployeesMVCRenderCommandURL">
@@ -24,13 +26,12 @@
 	</div>
 	<div class="" id="viewEmployeeList">
 		<liferay-ui:search-container
-			deltaConfigurable="true"
-			var="searchContainer" emptyResultsMessage="No data found" delta="10"
-			total="<%=employees.size()%>"
-			iteratorURL="${viewEmployeesMVCRenderCommandURL}"
+			var="searchContainer" emptyResultsMessage="No data found" delta="<%=delta%>"	
+			total="<%=employeeListSize%>"
+			iteratorURL="<%=viewEmployeesMVCRenderCommandURL%>"
 		>
 			<liferay-ui:search-container-results
-				results="<%=ListUtil.subList(employees, searchContainer.getStart(),searchContainer.getEnd())%>"/>
+				results="<%=employees%>"/>
 			<liferay-ui:search-container-row className="com.liferay.test.employees.model.Employee" modelVar="employee">
 				<liferay-ui:search-container-column-text property="firstName" name="First Name" />
 				<liferay-ui:search-container-column-text property="middleName" name="Middle Name" />
