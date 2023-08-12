@@ -25,7 +25,7 @@
 						<aui:validator name="custom" errorMessage="Please enter a valid first name">
                            function (val, fieldNode, ruleValue) {
                               var isValid = true;
-                              var regex = /\D/;
+                              var regex = /[a-zA-Z]/;
                               isValid = regex.test(val);
                               console.log("--------->"+isValid);
                               if(isValid){

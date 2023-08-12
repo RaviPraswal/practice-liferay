@@ -21,5 +21,12 @@ public class PracticeLiferayEmployeesWebPortletKeys {
 	public static final String INVALID_EMAIL_ADDRESS="invalid.email.address";
 	public static final String INVALID_PHONE_NUMBER="invalid.phone.number";
 
+	public static final String DELTA_IN_RENDER_REQUEST = "delta";
+
+	public static final String EMPLOYEE_LIST_SIZE_IN_RENDER_REQUEST = "employeeListSize";
+
+	public static final String EMPLOYEE_FIRST_NAME_LIST_IN_RENDER_REQUEST = "firstNameList";
+	public static final String SELECTED_FIRST_NAME_IN_RENDER_REQUEST = "selectedFirstName";
+
 
 }
