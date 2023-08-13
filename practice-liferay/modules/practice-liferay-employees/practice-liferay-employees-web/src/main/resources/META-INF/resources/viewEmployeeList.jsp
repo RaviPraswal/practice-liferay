@@ -41,8 +41,8 @@
 			<form action="<%=viewEmployeesMVCRenderCommandURL%>" id="employeeFilter" method="post">
 				<div class="row">		
 		    		<div class="col">
-		      			<div class="first-name-filter form-control">
-							<select label="First Name" name="<portlet:namespace/>listofFirstName" id="listofFirstName" multiple="multiple">
+		      			<div class="first-name-filter">
+							<select label="First Name" name="<portlet:namespace/>listofFirstName" id="listofFirstName" multiple="multiple" class="d-none">
 								<%
 									if (Validator.isNotNull(firstNameSet)) {
 										for (String firstName : firstNameSet) {
@@ -63,7 +63,7 @@
 						</div>
 		    		</div>
 				    <div class="col-5">
-				      <aui:input type="text" label="Search Bar" name="searchBar" id="searchBar" placeholder="Search" autocomplete="off" aria-label="Search"></aui:input>
+				      <input type="text" class="form-control" name="<portlet:namespace/>searchBar" placeholder="Search" />
 				    </div>
 				    <div class="col">
 				    	<div class="row">
@@ -127,6 +127,7 @@
 	}
 	
 	$('#listofFirstName').multiselect({
+		buttonClass : 'form-control',
 		numberDisplayed: 1,
 		enableFiltering : true,
 		enableCaseInsensitiveFiltering : true,
@@ -146,6 +147,10 @@
 	
 	.color-blue {
 		color: royalBlue;
+	}
+	
+	.employee-list-filter{
+		width: 100%;
 	}
 </style>
 
