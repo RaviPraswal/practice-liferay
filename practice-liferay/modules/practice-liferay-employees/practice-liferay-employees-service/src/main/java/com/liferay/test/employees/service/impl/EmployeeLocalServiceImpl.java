@@ -15,6 +15,11 @@
 package com.liferay.test.employees.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -23,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.test.employees.exception.EmployeeRegistrationValidationException;
@@ -31,6 +37,9 @@ import com.liferay.test.employees.service.base.EmployeeLocalServiceBaseImpl;
 import com.liferay.test.employees.validator.EmployeeRegistrationValidator;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -114,6 +123,34 @@ public class EmployeeLocalServiceImpl extends EmployeeLocalServiceBaseImpl {
         return employee;
 
     }
+	
+	
+	public List<Employee> getEmployeeList(String[] keywords, int start, int end){
+		DynamicQuery dynamicQuery = dynamicQuery();
+		if(ArrayUtil.isNotEmpty(keywords)) {
+			dynamicQuery.add(RestrictionsFactoryUtil.in("firstName", keywords));
+		}
+		
+		return employeeLocalService.dynamicQuery(dynamicQuery, start, end);
+	}
+	
+	public long getEmployeeListCount(String[] keywords) {
+		DynamicQuery dynamicQuery = dynamicQuery();
+		if(ArrayUtil.isNotEmpty(keywords)) {
+			dynamicQuery = dynamicQuery().add(RestrictionsFactoryUtil.in("firstName", keywords));
+		}
+		return employeeLocalService.dynamicQueryCount(dynamicQuery);
+	}
+	
+	public Set<String> getUniqueFirstNames(){
+		DynamicQuery dynamicQuery = dynamicQuery();
+		dynamicQuery.setProjection(ProjectionFactoryUtil.distinct(ProjectionFactoryUtil.property("firstName")));
+		List<String> firstNames = employeeLocalService.dynamicQuery(dynamicQuery);
+		return new TreeSet(firstNames);
+	}
+	
+	
+	
 	
 	@Reference
 	private EmployeeRegistrationValidator employeeRegistrationValidator;

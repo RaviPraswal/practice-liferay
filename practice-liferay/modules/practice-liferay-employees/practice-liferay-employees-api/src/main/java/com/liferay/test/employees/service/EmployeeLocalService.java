@@ -40,6 +40,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -239,6 +240,13 @@ public interface EmployeeLocalService
 	public Employee getEmployeeByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Employee> getEmployeeList(
+		String[] keywords, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getEmployeeListCount(String[] keywords);
+
 	/**
 	 * Returns a range of all the employees.
 	 *
@@ -308,6 +316,9 @@ public interface EmployeeLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Set<String> getUniqueFirstNames();
 
 	public Employee registerEmployee(
 			String fName, String mName, String lName, String email,

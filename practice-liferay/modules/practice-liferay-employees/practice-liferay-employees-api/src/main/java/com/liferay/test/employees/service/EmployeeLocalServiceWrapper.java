@@ -286,6 +286,18 @@ public class EmployeeLocalServiceWrapper
 		return _employeeLocalService.getEmployeeByUuidAndGroupId(uuid, groupId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.test.employees.model.Employee>
+		getEmployeeList(String[] keywords, int start, int end) {
+
+		return _employeeLocalService.getEmployeeList(keywords, start, end);
+	}
+
+	@Override
+	public long getEmployeeListCount(String[] keywords) {
+		return _employeeLocalService.getEmployeeListCount(keywords);
+	}
+
 	/**
 	 * Returns a range of all the employees.
 	 *
@@ -386,6 +398,11 @@ public class EmployeeLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _employeeLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.util.Set<String> getUniqueFirstNames() {
+		return _employeeLocalService.getUniqueFirstNames();
 	}
 
 	@Override

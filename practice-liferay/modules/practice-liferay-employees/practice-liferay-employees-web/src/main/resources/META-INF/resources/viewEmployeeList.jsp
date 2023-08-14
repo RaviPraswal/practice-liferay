@@ -1,3 +1,5 @@
+<%@page import="java.util.TreeSet"%>
+<%@page import="com.liferay.test.employees.service.EmployeeLocalServiceUtil"%>
 <%@page import="java.util.Set"%>
 <%@page import="javax.portlet.PortletSession"%>
 <%@page import="java.util.Arrays"%>
@@ -14,9 +16,9 @@
 
 <%
 	List<Employee> employees = (List<Employee>) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_LIST_IN_RENDER_REQUEST);
-	Set<String> firstNameSet = (Set<String>) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_FIRST_NAME_LIST_IN_RENDER_REQUEST);
+	Set<String> firstNameSet = (Set<String>)renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_FIRST_NAME_LIST_IN_RENDER_REQUEST);
 	int delta = (Integer) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.DELTA_IN_RENDER_REQUEST);
-	int employeeListSize = (Integer) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_LIST_SIZE_IN_RENDER_REQUEST);
+	long employeeListSize = (Long) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_LIST_SIZE_IN_RENDER_REQUEST);
 	String[] selectedFirstName = Validator.isNotNull(renderRequest.getPortletSession().getAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST,PortletSession.APPLICATION_SCOPE))? (String[]) renderRequest.getPortletSession().getAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST,PortletSession.APPLICATION_SCOPE): (new String[0]);
 	System.out.println("Selected First Name Arr Length: "+selectedFirstName.length);
 %>
@@ -49,7 +51,7 @@
 											if (Validator.isNotNull(Arrays.asList(selectedFirstName)) && Arrays.asList(selectedFirstName).size() > 0 &&  Arrays.asList(selectedFirstName).size() > 0 && Arrays.asList(selectedFirstName).contains(firstName)) {
 											System.out.println("===="+firstName);
 								%>
-												<option value="<%=firstName%>" selected="selected"><%=firstName + " -- " + "IND"%></option>
+												<option value="<%=firstName%>" selected="true"><%=firstName%></option>
 								<%
 											} else {
 								%>
@@ -81,8 +83,8 @@
 	<div class="row">
 		<div class="view-employee-list-search-container" id="viewEmployeeList">
 			<liferay-ui:search-container var="searchContainer"
-				emptyResultsMessage="No data found" delta="<%=delta%>"
-				total="<%=employeeListSize%>"
+				emptyResultsMessage="No data found" delta="${delta }"
+				total="${employeeListSize}"
 				iteratorURL="<%=viewEmployeesMVCRenderCommandURL%>">
 				<liferay-ui:search-container-results results="<%=employees%>" />
 				<liferay-ui:search-container-row className="com.liferay.test.employees.model.Employee" modelVar="employee">
