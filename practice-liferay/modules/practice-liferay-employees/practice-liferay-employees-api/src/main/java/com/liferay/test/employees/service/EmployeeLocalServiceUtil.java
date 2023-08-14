@@ -24,6 +24,7 @@ import com.liferay.test.employees.model.Employee;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Provides the local service utility for Employee. This utility wraps
@@ -254,6 +255,16 @@ public class EmployeeLocalServiceUtil {
 		return getService().getEmployeeByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static List<Employee> getEmployeeList(
+		String[] keywords, int start, int end) {
+
+		return getService().getEmployeeList(keywords, start, end);
+	}
+
+	public static long getEmployeeListCount(String[] keywords) {
+		return getService().getEmployeeListCount(keywords);
+	}
+
 	/**
 	 * Returns a range of all the employees.
 	 *
@@ -340,6 +351,10 @@ public class EmployeeLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static Set<String> getUniqueFirstNames() {
+		return getService().getUniqueFirstNames();
 	}
 
 	public static Employee registerEmployee(
