@@ -136,6 +136,14 @@
 		nonSelectedText : 'Select',
 	});
 
+	$("#<portlet:namespace/>clearButton").on('click', function() {
+		$("#<portlet:namespace/>clearFilters").val("true");
+		if($("#employeeFilter")[0]){
+			$("#employeeFilter").submit();
+		} else {
+			$("#<portlet:namespace/>employeeFilter").submit();
+		}
+	});
 </script>
 
 <style>
