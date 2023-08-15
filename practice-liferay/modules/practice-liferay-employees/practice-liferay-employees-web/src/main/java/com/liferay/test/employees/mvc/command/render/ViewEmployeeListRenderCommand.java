@@ -54,7 +54,7 @@ public class ViewEmployeeListRenderCommand implements MVCRenderCommand {
 		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
 		int end = start + delta;
 		
-		boolean isClearFilter = ParamUtil.getBoolean(renderRequest, "clearFilter");
+		boolean isClearFilter = ParamUtil.getBoolean(renderRequest, "clearFilters");
 		long employeeCount = 0l;
 		String[] selectedFirstNameArr = null;
 		List<Employee> totalEmployees = null;
@@ -65,8 +65,10 @@ public class ViewEmployeeListRenderCommand implements MVCRenderCommand {
 		}else {
 			selectedFirstNameArr = ParamUtil.getParameterValues(renderRequest, "listofFirstName");
 			log.info("selectedFirstNameArr length : "+selectedFirstNameArr.length);
-			renderRequest.setAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST, selectedFirstNameArr);	
-			renderRequest.getPortletSession().setAttribute( PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST, selectedFirstNameArr, PortletSession.APPLICATION_SCOPE);
+			if(ArrayUtil.isNotEmpty(selectedFirstNameArr)) {
+				renderRequest.setAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST, selectedFirstNameArr);	
+				renderRequest.getPortletSession().setAttribute( PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST, selectedFirstNameArr, PortletSession.APPLICATION_SCOPE);
+			}
 		}
 		
 		totalEmployees = EmployeeLocalServiceUtil.getEmployeeList(selectedFirstNameArr, start, end);
