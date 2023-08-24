@@ -15,7 +15,8 @@ import org.osgi.service.component.annotations.Component;
 @Component(immediate = true, service = EmployeeFieldsValidator.class)
 public class EmployeeFieldsValidator {
 	public static boolean isEmployeeRegistrationValid(String firstName, String middleName, String lastName, String email, String phone, String dob, ActionRequest actionRequest) {
-		boolean isValid = false;
+		log.info("Employee FName : "+ firstName+"  Employee MName : "+ middleName+"  Employee LName : "+lastName+"  Employee Email : "+ email+"  Employee Phone : "+ phone);
+		boolean isValid = true;
 		isValid &= validateFirstName(firstName,actionRequest);
 		log.error("isFirstNameValid : "+isValid);
 		isValid &= validateMiddleName(middleName,actionRequest);
@@ -24,10 +25,10 @@ public class EmployeeFieldsValidator {
 		log.error("isLastNameValid : "+isValid);
 		isValid &= validateEmail(email,actionRequest);
 		log.error("isEmailValid : "+isValid);
+		isValid &= validateDOB(dob,actionRequest);
+		log.error("isDOBValid : "+isValid);
 		isValid &= validatePhone(phone,actionRequest);
 		log.error("isPhoneNumberValid : "+isValid);
-		isValid &= validateDOB(phone,actionRequest);
-		log.error("isDOBValid : "+isValid);
 		return isValid;
 	}
 
@@ -37,7 +38,7 @@ public class EmployeeFieldsValidator {
 			SessionErrors.add(actionRequest, "dob.empty");
 			isValid = false;
 		} else isValid = true;
-			
+		log.info("isValidateDOB: "+isValid);
 		return isValid;
 	}
 
@@ -50,13 +51,14 @@ public class EmployeeFieldsValidator {
 			SessionErrors.add(actionRequest, "first.name.empty");
 			isValid = false;
 		} else {
-			if (matcher.matches())
+			if (matcher.matches()) {
 				isValid = true;
-			else {
+			}else {
 				SessionErrors.add(actionRequest, "invalid.first.name");
 				isValid = false;
 			}
 		}
+		log.info(isValid);
 		return isValid;
 	}
 
@@ -119,7 +121,7 @@ public class EmployeeFieldsValidator {
 
 	public static boolean validatePhone(String phone, ActionRequest actionRequest) {
 		boolean isValid = true;
-		String phoneRegex = "/^[6-9]\\d{9}$/gi;";
+		String phoneRegex = "^[6-9]{1}[0-9]{9}$";
 		Pattern pattern = Pattern.compile(phoneRegex);
 		Matcher matcher = pattern.matcher(phone);
 		if (Validator.isNull(phone) || phone.trim().isEmpty()) {
@@ -133,6 +135,7 @@ public class EmployeeFieldsValidator {
 				isValid = false;
 			}
 		}
+		log.info("is phone valid: "+isValid);
 		return isValid;
 	}
 	private static Log log = LogFactoryUtil.getLog(EmployeeFieldsValidator.class.getName());

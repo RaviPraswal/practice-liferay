@@ -94,17 +94,9 @@
 					<liferay-ui:search-container-column-text property="phone" name="Phone Number" />
 					<liferay-ui:search-container-column-text property="email" name="Email ID" />
 					<liferay-ui:search-container-column-text property="dob" name="Date of Birth" />
-					<%
-						String status = WorkflowConstants.getStatusLabel(employee.getStatus());
-						String statusColor = StringPool.BLANK;
-						if (employee.getStatus() == WorkflowConstants.STATUS_APPROVED)
-							statusColor = "color-green";
-						else if (employee.getStatus() == WorkflowConstants.STATUS_PENDING)
-							statusColor = "color-blue";
-						else if (employee.getStatus() == WorkflowConstants.STATUS_DENIED)
-							statusColor = "color-red";
-					%>
-					<liferay-ui:search-container-column-text cssClass="<%=statusColor%>" value="<%=status%>" name="Employee Registration Request" />
+					<liferay-ui:search-container-column-text name="Status" >
+					    <aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= employee.getStatus() %>" />
+					</liferay-ui:search-container-column-text>
 					<liferay-ui:search-container-column-text property="statusDate" name="Status Last Updated Date" />
 				</liferay-ui:search-container-row>
 				<liferay-ui:search-iterator displayStyle="list" markupView="lexicon" />
@@ -147,18 +139,6 @@
 </script>
 
 <style>
-	.color-red {
-		color: red;
-	}
-	
-	.color-green {
-		color: limegreen;
-	}
-	
-	.color-blue {
-		color: royalBlue;
-	}
-	
 	.employee-list-filter{
 		width: 100%;
 	}

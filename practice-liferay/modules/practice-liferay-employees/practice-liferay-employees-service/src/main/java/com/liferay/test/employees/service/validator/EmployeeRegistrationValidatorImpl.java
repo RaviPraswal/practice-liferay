@@ -18,7 +18,7 @@ import org.osgi.service.component.annotations.Component;
 public class EmployeeRegistrationValidatorImpl implements EmployeeRegistrationValidator {
 
 	private boolean isEmployeeRegistrationValid(String firstName, String middleName, String lastName, String email, String phone, final List<String> errors) {
-		boolean isValid = false;
+		boolean isValid = true;
 		isValid &= validateFirstName(firstName, errors);
 		log.error("isFirstNameValid : "+isValid);
 		isValid &= validateMiddleName(middleName, errors);
@@ -121,7 +121,7 @@ public class EmployeeRegistrationValidatorImpl implements EmployeeRegistrationVa
 
 	public static boolean validatePhone(String phone, List<String> errors) {
 		boolean isValid = true;
-		String phoneRegex = "/^[6-9]\\d{9}$/gi;";
+		String phoneRegex = "^[6-9]{1}[0-9]{9}$";
 		Pattern pattern = Pattern.compile(phoneRegex);
 		Matcher matcher = pattern.matcher(phone);
 		if (Validator.isNull(phone) || phone.trim().isEmpty()) {
