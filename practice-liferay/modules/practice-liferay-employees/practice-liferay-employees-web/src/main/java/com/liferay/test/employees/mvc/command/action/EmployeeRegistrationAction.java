@@ -50,7 +50,7 @@ public class EmployeeRegistrationAction extends BaseMVCActionCommand {
 			log.info(dob);
 			Date formattedDOB = new Date();
 			try {
-				formattedDOB = (Date)DateUtil.dateFormater(dob, "dd-MM-yyyy",Date.class.getName());
+				formattedDOB = (Date)DateUtil.dateFormater(dob, "yyyy/MM/dd",Date.class.getName());
 				log.info("formattedDOB : "+formattedDOB);
 			} catch (ClassNotFoundException | java.text.ParseException e) {
 				log.error(e);
