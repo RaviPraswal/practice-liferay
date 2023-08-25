@@ -1,3 +1,6 @@
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.util.TreeSet"%>
 <%@page import="com.liferay.test.employees.service.EmployeeLocalServiceUtil"%>
 <%@page import="java.util.Set"%>
@@ -7,11 +10,12 @@
 <%@page import="com.liferay.petra.string.StringPool"%>
 <%@page import="com.liferay.portal.kernel.workflow.WorkflowConstants"%>
 <%@page import="com.liferay.test.employees.constants.MVCCommandNames"%>
-<%@page
-	import="com.liferay.test.employees.constants.PracticeLiferayEmployeesWebPortletKeys"%>
+<%@page import="com.liferay.test.employees.constants.PracticeLiferayEmployeesWebPortletKeys"%>
 <%@page import="java.util.List"%>
 <%@page import="com.liferay.test.employees.model.Employee"%>
 <%@page import="com.liferay.portal.kernel.util.ListUtil"%>
+<%@page import="com.liferay.portal.kernel.log.Log"%>
+<%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
 <%@ include file="init.jsp"%>
 
 <%
@@ -93,11 +97,18 @@
 					<liferay-ui:search-container-column-text property="lastName" name="Last Name" />
 					<liferay-ui:search-container-column-text property="phone" name="Phone Number" />
 					<liferay-ui:search-container-column-text property="email" name="Email ID" />
-					<liferay-ui:search-container-column-text property="dob" name="Date of Birth" />
+					<%
+					    Date dob = employee.getDob();
+						Date statusDate = employee.getStatusDate();
+						SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                        String formattedDOB = dateFormat.format(dob);
+                        String formattedStatusDate = dateFormat.format(statusDate);
+					%>
+					<liferay-ui:search-container-column-text value="<%=formattedDOB%>" name="Date of Birth" />
 					<liferay-ui:search-container-column-text name="Status" >
 					    <aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= employee.getStatus() %>" />
 					</liferay-ui:search-container-column-text>
-					<liferay-ui:search-container-column-text property="statusDate" name="Status Last Updated Date" />
+					<liferay-ui:search-container-column-text value="<%=formattedStatusDate %>" name="Status Last Updated Date" />
 				</liferay-ui:search-container-row>
 				<liferay-ui:search-iterator displayStyle="list" markupView="lexicon" />
 			</liferay-ui:search-container>
