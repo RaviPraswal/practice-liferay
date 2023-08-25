@@ -24,7 +24,6 @@
 	int delta = (Integer) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.DELTA_IN_RENDER_REQUEST);
 	long employeeListSize = (Long) renderRequest.getAttribute(PracticeLiferayEmployeesWebPortletKeys.EMPLOYEE_LIST_SIZE_IN_RENDER_REQUEST);
 	String[] selectedFirstName = Validator.isNotNull(renderRequest.getPortletSession().getAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST,PortletSession.APPLICATION_SCOPE))? (String[]) renderRequest.getPortletSession().getAttribute(PracticeLiferayEmployeesWebPortletKeys.SELECTED_FIRST_NAME_IN_RENDER_REQUEST,PortletSession.APPLICATION_SCOPE): (new String[0]);
-	System.out.println("Selected First Name Arr Length: "+selectedFirstName.length);
 %>
 
 <liferay-portlet:renderURL varImpl="viewEmployeesMVCRenderCommandURL">
@@ -53,7 +52,6 @@
 									if (Validator.isNotNull(firstNameSet)) {
 										for (String firstName : firstNameSet) {
 											if (Validator.isNotNull(Arrays.asList(selectedFirstName)) && Arrays.asList(selectedFirstName).size() > 0 &&  Arrays.asList(selectedFirstName).size() > 0 && Arrays.asList(selectedFirstName).contains(firstName)) {
-											System.out.println("===="+firstName);
 								%>
 												<option value="<%=firstName%>" selected="true"><%=firstName%></option>
 								<%
