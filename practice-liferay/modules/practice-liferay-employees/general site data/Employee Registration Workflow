@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:liferay.com:liferay-workflow_7.4.0 http://www.liferay.com/dtd/liferay-workflow-definition_7_4_0.xsd"
 >
-	<version>30</version>
+	<version>34</version>
 	<state>
 		<id>registrationRequested</id>
 		<description>A user requested a registration application</description>
@@ -69,6 +69,21 @@
 				}
 			]]>
 		</metadata>
+		<actions>
+			<action>
+				<name>User Registered</name>
+				<description></description>
+				<script>
+					<![CDATA[import com.liferay.portal.kernel.workflow.WorkflowConstants;
+						import com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil;
+
+						WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("approved"), workflowContext);]]>
+				</script>
+				<script-language>groovy</script-language>
+				<priority>1</priority>
+				<execution-type>onEntry</execution-type>
+			</action>
+		</actions>
 		<labels>
 			<label language-id="en_US">
 				Employee Register
@@ -469,10 +484,10 @@
 			<transition>
 				<labels>
 					<label language-id="en_US">
-						Transition Label
+						Owner Rejected
 					</label>
 				</labels>
-				<id>5c92491f-f6b9-455a-864d-91536edf341c</id>
+				<id>ownerRejectedTransition</id>
 				<target>finalRejectRequestTask</target>
 				<default>true</default>
 			</transition>
@@ -509,7 +524,7 @@
 					<![CDATA[import com.liferay.portal.kernel.workflow.WorkflowConstants;
 						import com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil;
 
-						WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("approved"), workflowContext);]]>
+						WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("draft"), workflowContext);]]>
 				</script>
 				<script-language>groovy</script-language>
 				<priority>1</priority>
@@ -547,10 +562,10 @@
 			<transition>
 				<labels>
 					<label language-id="en_US">
-						Transition Label
+						Document Not Verified
 					</label>
 				</labels>
-				<id>7ef11b0e-5e56-4acb-bd4c-72c904e4e45f</id>
+				<id>documentNotVerifiedTransition</id>
 				<target>finalRejectRequestTask</target>
 				<default>true</default>
 			</transition>
