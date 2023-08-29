@@ -4,6 +4,13 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet"%>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@page import="com.liferay.portal.kernel.captcha.CaptchaTextException"%>
+<%@page import="com.liferay.portal.kernel.captcha.CaptchaException"%>
+<%@page import="com.liferay.portal.kernel.captcha.CaptchaConfigurationException" %>
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
+<%@page import="com.liferay.test.employees.constants.MVCCommandNames"%>
+<%@ taglib uri="http://liferay.com/tld/captcha" prefix="liferay-captcha" %>
 
 <liferay-theme:defineObjects />
 

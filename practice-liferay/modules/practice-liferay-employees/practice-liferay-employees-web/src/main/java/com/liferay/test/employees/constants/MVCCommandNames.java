@@ -7,4 +7,7 @@ public class MVCCommandNames {
 	
 	// Action Command Names
 	public static final String EMPLOYEE_REGISTRATION_ACTION_COMMAND = "/add/employee";
+	
+	// Resource Command Names
+		public static final String EMPLOYEE_CAPTCHA_RESOURCE_COMMAND = "/captcha";
 }

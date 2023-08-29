@@ -1,4 +1,4 @@
-<%@page import="com.liferay.test.employees.constants.MVCCommandNames"%>
+<%@page import="java.util.Random"%>
 <%@ include file="init.jsp" %>
 <%@ include file="formFieldValidation.jsp"%>
 
@@ -9,6 +9,10 @@
 <portlet:renderURL var="viewEmpRenderURL">
 	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_EMPLOYEE_LIST_RENDER_COMMAND %>" />
 </portlet:renderURL>
+
+<portlet:resourceURL id="<%=MVCCommandNames.EMPLOYEE_CAPTCHA_RESOURCE_COMMAND%>" var="captchaResourceURL" />
+
+<%-- <portlet:resourceURL var="captchaURL" /> --%>
 
 <div class="container">
 	<div class="col-md-12">
@@ -43,7 +47,9 @@
 					<aui:input type="text" name="middleName" label="employee-form-middle-name" />
 				</div>
 				<div class="col-md-4">
-					<aui:input type="text" name="lastName" label="employee-form-last-name" />
+					<aui:input type="text" name="lastName" label="employee-form-last-name">
+						<aui:validator name="required" errorMessage="Please enter your Last Name."/>
+					</aui:input>
 				</div>
 				<div class="col-md-4">
 					<aui:input name="phone" type="text" label="employee-form-phone">
@@ -59,8 +65,35 @@
 					</aui:input>
 				</div>
 				<div class="col-md-4">
-					<aui:input type="Date" name="dob" label="date-of-birth" />
+					<aui:input type="Date" name="dob" label="date-of-birth">
+						<aui:validator name="required" errorMessage="Please enter your Date of birth."/>
+					</aui:input>
 				</div>
+				<%-- <div class="col-md-12">
+					<liferay-captcha:captcha/>
+				</div> --%>
+				
+				
+				<div class="col-md-12">
+					<div class="my-3 taglib-captcha">
+						<img alt="Text to Identify" class="captcha d-inline-block mb-2"
+							id="<portlet:namespace />captcha" src="<%= captchaResourceURL %>">
+						<span class="align-top d-inline-block refresh lfr-portal-tooltip" title="Refresh CAPTCHA"> <a href="javascript:;"
+								target="_self" class=" lfr-icon-item taglib-icon refreshCaptcha captcha-reload"> 
+								<span class="c-inner" tabindex="-1">
+									<img class="icon-reload" src="<%= request.getContextPath() %>/images/ico_refresh_capcha.svg" alt="reload-captcha" >
+								</span> <span class="taglib-text hide-accessible sr-only">Refresh CAPTCHA</span> </a>
+						</span>
+						<div class="form-group input-text-wrapper">
+							<aui:input label="text-verification" name="captchaText" size="10" type="text" value="">
+								<aui:validator name="required" />
+							</aui:input>
+						</div>
+					</div>
+					<span class="error-text" id="captchaText-error"></span>
+				</div>
+				
+				
 				<div class="col-md-12">
 					<aui:button type="submit" value="SUBMIT" />
 				</div>
@@ -69,5 +102,10 @@
 	</div>
 </div>
 <script>
-	$('.alert-dismissible').delay(2000).fadeOut();
+	$('.alert-dismissible').delay(9000).fadeOut();
+	jQuery(".refreshCaptcha").click(function(evt){
+	  jQuery(".captcha").attr('src', '<%=captchaResourceURL%>');
+	  evt.preventDefault();
+	});
+	jQuery(".captcha").attr("src", jQuery(".captcha").attr("src")+"&amp;force=" + new Date().getMilliseconds());
 </script>
