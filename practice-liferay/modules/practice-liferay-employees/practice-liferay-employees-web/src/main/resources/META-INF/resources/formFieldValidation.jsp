@@ -1,5 +1,3 @@
-  <%@page import="java.util.ResourceBundle"%>
-<%@page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 <%@ include file="init.jsp" %>
     
 <%-- For Error And Related Support --%>
@@ -23,3 +21,9 @@
 <liferay-ui:error key="invalid.phone.number" message="<%=ResourceBundle.getBundle("/content/Error-Messages").getString("invalid.phone.number")%>" />
 
 <liferay-ui:error key="dob.empty" message="<%=ResourceBundle.getBundle("/content/Error-Messages").getString("dob.empty")%>" />
+
+<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="captcha-verification-failed" />
+<liferay-ui:error exception="<%= CaptchaConfigurationException.class %>" message="a-captcha-error-occurred-please-contact-an-administrator" />
+<liferay-ui:error exception="<%= CaptchaException.class %>" message="captcha-verification-failed" />
+<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="text-verification-failed" />
+	
