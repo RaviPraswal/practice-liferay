@@ -1,0 +1,4 @@
+Bundle-Name: practice-liferay-employees-web
+Bundle-SymbolicName: com.liferay.test.employees
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.test.employees.constants

@@ -1,0 +1,20 @@
+create table PRACTICE_LIFERAY_Employee (
+	uuid_ VARCHAR(75) null,
+	employeeId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	firstName VARCHAR(75) null,
+	middleName VARCHAR(75) null,
+	lastName VARCHAR(75) null,
+	phone VARCHAR(75) null,
+	email VARCHAR(75) null,
+	dob DATE null,
+	status INTEGER,
+	statusByUserId LONG,
+	statusByUserName VARCHAR(75) null,
+	statusDate DATE null
+);
