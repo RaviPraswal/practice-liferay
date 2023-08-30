@@ -1,0 +1,10 @@
+Bundle-Name: practice-liferay-employees-api
+Bundle-SymbolicName: com.liferay.test.employees.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.test.employees.exception,\
+	com.liferay.test.employees.model,\
+	com.liferay.test.employees.service,\
+	com.liferay.test.employees.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../practice-liferay-employees-service/service.xml

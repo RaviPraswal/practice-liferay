@@ -1,0 +1,631 @@
+<?xml version="1.0"?>
+
+<workflow-definition
+	xmlns="urn:liferay.com:liferay-workflow_7.4.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:liferay.com:liferay-workflow_7.4.0 http://www.liferay.com/dtd/liferay-workflow-definition_7_4_0.xsd"
+>
+	<version>41</version>
+	<state>
+		<name>registrationRequested</name>
+		<description>A user requested a registration application</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						300,
+						100
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<notification>
+				<name>Registration Application Submitted</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[Your Application is submitted]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<initial>true</initial>
+		<labels>
+			<label language-id="en_US">
+				Registration Requested
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						HR Review Assignment
+					</label>
+				</labels>
+				<name>hrReviewAssignment</name>
+				<target>hrReviewTask</target>
+				<default>true</default>
+			</transition>
+		</transitions>
+	</state>
+	<state>
+		<name>employeeRegisterTask</name>
+		<description>Conclude the workflow.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						305.78078190138194,
+						987.0954783076842
+					],
+					"terminal": true
+				}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>User Registered</name>
+				<description></description>
+				<status>0</status>
+				<priority>1</priority>
+				<execution-type>onEntry</execution-type>
+			</action>
+		</actions>
+		<labels>
+			<label language-id="en_US">
+				Employee Register
+			</label>
+		</labels>
+	</state>
+	<task>
+		<name>hrReviewTask</name>
+		<description>HR will review the application</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						296.0078125,
+						243.5234375
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<notification>
+				<name>Review a registration request</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} sent you a ${entryType} for review in the workflow.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44330</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<roles>
+				<role>
+					<role-id>44330</role-id>
+				</role>
+			</roles>
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				HR Review Task
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Technical Interview Assignment
+					</label>
+				</labels>
+				<name>technicalInterviewAssignment</name>
+				<target>technicalInterviewTask</target>
+				<default>true</default>
+			</transition>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Reject
+					</label>
+				</labels>
+				<name>reject</name>
+				<target>updateRequestTask</target>
+				<default>false</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>technicalInterviewTask</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						297.2534173366834,
+						403.07091419336257
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>Technical Interview Scheduled</name>
+				<description></description>
+				<status>7</status>
+				<priority>1</priority>
+				<execution-type>onAssignment</execution-type>
+			</action>
+			<notification>
+				<name>An Interview is scheduled</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} sent you a ${entryType} for technical interview in the workflow.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+			<notification>
+				<name>Technical Interview is Scheduled</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[Be ready for a technical interview round. Good Luck!]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<roles>
+				<role>
+					<role-id>44331</role-id>
+				</role>
+			</roles>
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				TaskTechnical Interview
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Final Interview Round Assignment
+					</label>
+				</labels>
+				<name>finalInterviewRoundAssignment</name>
+				<target>finalInterviewRoundTask</target>
+				<default>true</default>
+			</transition>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Technical Interviewer Rejected
+					</label>
+				</labels>
+				<name>technicalInterviewerRejectedAssignment</name>
+				<target>finalRejectRequestTask</target>
+				<default>false</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>finalInterviewRoundTask</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						291.51294827653885,
+						545.4505073701841
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<notification>
+				<name>Final Interview Round to Owner</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} sent you a ${entryType} for final interview round in the workflow.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44334</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+			<notification>
+				<name>Final Interview Round to Requestor</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} is the owner of our company and he will take your Final Round of the Interview.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<roles>
+				<role>
+					<role-id>44334</role-id>
+				</role>
+			</roles>
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				Final Interview Round Task
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Document Verification Assignment
+					</label>
+				</labels>
+				<name>documentVerificationAssignment</name>
+				<target>documentVerificationTask</target>
+				<default>true</default>
+			</transition>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Owner Rejected
+					</label>
+				</labels>
+				<name>ownerRejectedTransition</name>
+				<target>finalRejectRequestTask</target>
+				<default>false</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>documentVerificationTask</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						296.0420601149498,
+						687.3330230083751
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>Requester Verified</name>
+				<description></description>
+				<status>2</status>
+				<priority>1</priority>
+				<execution-type>onAssignment</execution-type>
+			</action>
+			<notification>
+				<name>Initiate the document verification</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} sent you a ${entryType} for review in the workflow.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44332</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<roles>
+				<role>
+					<role-id>44332</role-id>
+				</role>
+			</roles>
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				Document Verification
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Send Welcome Kit Assignment
+					</label>
+				</labels>
+				<name>sendWelcomeKitAssignment</name>
+				<target>sendWelcomeKit</target>
+				<default>true</default>
+			</transition>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Document Not Verified
+					</label>
+				</labels>
+				<name>documentNotVerifiedTransition</name>
+				<target>finalRejectRequestTask</target>
+				<default>false</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>sendWelcomeKit</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						296.04216477386933,
+						833.0853254562394
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<notification>
+				<name>Initiate User registration</name>
+				<description>
+					<![CDATA[Initiate User registration and send the welcome kit]]>
+				</description>
+				<template>
+					<![CDATA[${userName} sent you a ${entryType} for review in the workflow.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44333</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+			<notification>
+				<name>User registration initiated notification to HR</name>
+				<description>
+					<![CDATA[User registration process initiated and sending the welcome kit]]>
+				</description>
+				<template>
+					<![CDATA[User registration process initiated and sending the welcome kit]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44330</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+			<notification>
+				<name>User registration initiated notification to Requester</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[Congratulations Onboard!! You are now an official employee of our Organization. Please acknowledge us once you receives the Welcome Kit]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<roles>
+				<role>
+					<role-id>44333</role-id>
+				</role>
+			</roles>
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				Send Welcome Kit
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Employee Register Assignment
+					</label>
+				</labels>
+				<name>employeeRegisterAssignment</name>
+				<target>employeeRegisterTask</target>
+				<default>true</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>finalRejectRequestTask</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						1031.6619760144472,
+						594.7375091189278
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>Final Rejection</name>
+				<description>Your application is rejected</description>
+				<status>4</status>
+				<priority>1</priority>
+				<execution-type>onEntry</execution-type>
+			</action>
+			<notification>
+				<name>Final Rejection to Requester</name>
+				<description>
+					<![CDATA[Your application is rejected]]>
+				</description>
+				<template>
+					<![CDATA[Your application is rejected by ${userName}]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+			<notification>
+				<name>Final rejection to HR</name>
+				<description>
+					<![CDATA[Requester cannot be verified as an eligible aspirant]]>
+				</description>
+				<template>
+					<![CDATA[The application you sent is rejected by ${userName}.]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<roles>
+						<role>
+							<role-id>44330</role-id>
+						</role>
+					</roles>
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<user />
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				Final Reject Request Task
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Final Reject Request Sent To HR
+					</label>
+				</labels>
+				<name>finalRejectRequestSentToHRAssignment</name>
+				<target>hrReviewTask</target>
+				<default>true</default>
+			</transition>
+		</transitions>
+	</task>
+	<task>
+		<name>updateRequestTask</name>
+		<description>Ask a user to work on the item.</description>
+		<metadata>
+			<![CDATA[
+				{
+					"xy": [
+						939.06640979554,
+						88.8916462043551
+					]
+				}
+			]]>
+		</metadata>
+		<actions>
+			<action>
+				<name>Resubmitting application</name>
+				<description>User is resubmitting the application</description>
+				<status>6</status>
+				<priority>1</priority>
+				<execution-type>onAssignment</execution-type>
+			</action>
+			<notification>
+				<name>Application Rejected by HR</name>
+				<description>
+					<![CDATA[]]>
+				</description>
+				<template>
+					<![CDATA[${userName} is rejected your application ]]>
+				</template>
+				<template-language>freemarker</template-language>
+				<notification-type>user-notification</notification-type>
+				<recipients receptionType="to">
+					<user />
+				</recipients>
+				<execution-type>onEntry</execution-type>
+			</notification>
+		</actions>
+		<assignments>
+			<user />
+		</assignments>
+		<labels>
+			<label language-id="en_US">
+				Update Request Task
+			</label>
+		</labels>
+		<transitions>
+			<transition>
+				<labels>
+					<label language-id="en_US">
+						Ressubmit
+					</label>
+				</labels>
+				<name>resubmit</name>
+				<target>hrReviewTask</target>
+				<default>true</default>
+			</transition>
+		</transitions>
+	</task>
+</workflow-definition>
