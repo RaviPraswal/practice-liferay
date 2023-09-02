@@ -75,22 +75,9 @@
 				
 				
 				<div class="col-md-12">
-					<div class="my-3 taglib-captcha">
-						<img alt="Text to Identify" class="captcha d-inline-block mb-2"
-							id="<portlet:namespace />captcha" src="<%= captchaResourceURL %>">
-						<span class="align-top d-inline-block refresh lfr-portal-tooltip" title="Refresh CAPTCHA"> <a href="javascript:;"
-								target="_self" class=" lfr-icon-item taglib-icon refreshCaptcha captcha-reload"> 
-								<span class="c-inner" tabindex="-1">
-									<img class="icon-reload" src="<%= request.getContextPath() %>/images/ico_refresh_capcha.svg" alt="reload-captcha" >
-								</span> <span class="taglib-text hide-accessible sr-only">Refresh CAPTCHA</span> </a>
-						</span>
-						<div class="form-group input-text-wrapper">
-							<aui:input label="text-verification" name="captchaText" size="10" type="text" value="">
-								<aui:validator name="required" />
-							</aui:input>
-						</div>
-					</div>
-					<span class="error-text" id="captchaText-error"></span>
+					
+					<liferay-captcha:captcha />
+					
 				</div>
 				
 				
@@ -103,9 +90,4 @@
 </div>
 <script>
 	$('.alert-dismissible').delay(9000).fadeOut();
-	jQuery(".refreshCaptcha").click(function(evt){
-	  jQuery(".captcha").attr('src', '<%=captchaResourceURL%>');
-	  evt.preventDefault();
-	});
-	jQuery(".captcha").attr("src", jQuery(".captcha").attr("src")+"&amp;force=" + new Date().getMilliseconds());
 </script>
