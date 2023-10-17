@@ -9,5 +9,8 @@ public class MVCCommandNames {
 	public static final String EMPLOYEE_REGISTRATION_ACTION_COMMAND = "/add/employee";
 	
 	// Resource Command Names
-		public static final String EMPLOYEE_CAPTCHA_RESOURCE_COMMAND = "/captcha";
+	public static final String EMPLOYEE_CAPTCHA_RESOURCE_COMMAND = "/captcha";
+
+	// Resource Command Names
+	public static final String AUDIO_CAPTCHA_ACTION_COMMAND = "/audio/captcha";
 }
